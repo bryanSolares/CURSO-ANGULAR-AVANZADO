@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
 import { AccountSettingComponent } from './account-setting/account-setting.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 // Externos
 
@@ -23,6 +25,8 @@ import { AccountSettingComponent } from './account-setting/account-setting.compo
     Grafica1Component,
     PagesComponent,
     AccountSettingComponent,
+    PromesasComponent,
+    RxjsComponent,
   ],
   imports: [
     FormsModule,
@@ -36,7 +40,9 @@ import { AccountSettingComponent } from './account-setting/account-setting.compo
     ProgressComponent,
     Grafica1Component,
     PagesComponent,
-    AccountSettingComponent
+    AccountSettingComponent,
+    PromesasComponent,
+    RxjsComponent
   ],
 })
 export class PagesModule {}
