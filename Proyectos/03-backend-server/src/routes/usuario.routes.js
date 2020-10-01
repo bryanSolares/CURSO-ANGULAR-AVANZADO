@@ -1,3 +1,7 @@
+/* 
+    Ruta: '/api/usuarios'
+*/
+
 const router = require("express").Router();
 const { check } = require("express-validator");
 const usuarioCtrl = require("../controllers/usuario.controller");
