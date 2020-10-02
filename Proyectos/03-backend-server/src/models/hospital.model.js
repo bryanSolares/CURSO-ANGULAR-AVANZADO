@@ -4,7 +4,7 @@ const hospitalSchema = Schema(
   {
     name: { type: String, requiere: true },
     img: { type: String },
-    user: { type: Schema.Types.ObjectId, ref: "Usuario" },
+    user: { type: Schema.Types.ObjectId, ref: "Usuario", required: true },
   },
   { collection: "hospitales" }
 );
