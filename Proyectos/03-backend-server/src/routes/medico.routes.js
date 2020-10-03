@@ -23,7 +23,10 @@ router.post(
 router.put(
   "/update/:id",
   validateJWT,
-  [],
+  [
+    check("name", "El nombre es requerido").notEmpty(),
+    check("hospital", "El hospital es requerido").notEmpty(),
+  ],
   validarCampos,
   medicoCtrl.updateMedico
 );
