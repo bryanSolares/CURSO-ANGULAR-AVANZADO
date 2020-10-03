@@ -3,8 +3,11 @@ const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
 const fileUpload = require("express-fileupload");
+const path = require('path')
 require("dotenv").config();
 require("./database/config");
+
+app.use(express.static(path.join(__dirname,'public')))
 
 app.use(cors());
 app.use(morgan("dev"));

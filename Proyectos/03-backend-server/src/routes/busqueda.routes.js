@@ -4,13 +4,13 @@
 
 const router = require("express").Router();
 const { validateJWT } = require("../middlewares/validar-jwt.middle");
-const busquedaCtrl = require("../controllers/busquedas.controller");
+const controller = require("../controllers/busquedas.controller");
 
-router.get("/:busqueda?", validateJWT, busquedaCtrl.getTodo);
+router.get("/:busqueda?", validateJWT, controller.getTodo);
 router.get(
   "/collection/:tabla/:busqueda?",
   validateJWT,
-  busquedaCtrl.getCollectionsDocs
+  controller.getCollectionsDocs
 );
 
 module.exports = router;
