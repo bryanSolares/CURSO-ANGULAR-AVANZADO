@@ -10,7 +10,9 @@
       <form
         class="form-horizontal form-material"
         id="loginform"
-        (submit)="login()"
+        autocomplete="off"
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
       >
         <a href="javascript:void(0)" class="text-center db"
           ><img src="../assets/images/logo-icon.png" alt="Home" /><br /><img
@@ -90,7 +92,7 @@
         <div class="form-group m-b-0">
           <div class="col-sm-12 text-center">
             Don't have an account?
-            <a href="pages-register2.html" class="text-primary m-l-5"
+            <a routerLink="/register" class="text-primary m-l-5"
               ><b>Sign Up</b></a
             >
           </div>

@@ -10,9 +10,11 @@
       <form
         class="form-horizontal form-material"
         id="loginform"
-        action="index.html"
+        autocomplete="off"
+        [formGroup]="registerForm"
+        (ngSubmit)="createUser()"
       >
-        <a href="javascript:void(0)" class="text-center db"
+        <a routerLink="/login" class="text-center db"
           ><img src="../assets/images/logo-icon.png" alt="Home" /><br /><img
             src="../assets/images/logo-text.png"
             alt="Home"
@@ -24,8 +26,8 @@
             <input
               class="form-control"
               type="text"
-              required=""
               placeholder="Name"
+              formControlName="name"
             />
           </div>
         </div>
@@ -33,9 +35,9 @@
           <div class="col-xs-12">
             <input
               class="form-control"
-              type="text"
-              required=""
+              type="email"
               placeholder="Email"
+              formControlName="email"
             />
           </div>
         </div>
@@ -44,8 +46,8 @@
             <input
               class="form-control"
               type="password"
-              required=""
               placeholder="Password"
+              formControlName="password"
             />
           </div>
         </div>
@@ -54,21 +56,35 @@
             <input
               class="form-control"
               type="password"
-              required=""
               placeholder="Confirm Password"
+              formControlName="password2"
             />
           </div>
         </div>
         <div class="form-group row">
           <div class="col-md-12">
             <div class="checkbox checkbox-primary p-t-0">
-              <input id="checkbox-signup" type="checkbox" />
+              <input
+                id="checkbox-signup"
+                type="checkbox"
+                formControlName="conditions"
+              />
               <label for="checkbox-signup">
                 I agree to all <a href="#">Terms</a></label
               >
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col text-danger">
+            <p *ngIf="fieldInvalid('name')"><span>* El nombre es obligatorio</span> </p>
+            <p *ngIf="fieldInvalid('email')"><span>* El email es obligatorio</span></p>
+            <p *ngIf="passwordValid()"><span>* Las contraseñas deben coincidir</span></p>
+            <p *ngIf="validConditions()"><span>* Debe aceptar los términos de uso</span></p>
+          </div>
+        </div>
+
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
             <button
@@ -83,9 +99,7 @@
           <div class="col-sm-12 text-center">
             <p>
               Already have an account?
-              <a href="pages-login-2.html" class="text-info m-l-5"
-                ><b>Sign In</b></a
-              >
+              <a routerLink="/login" class="text-info m-l-5"><b>Sign In</b></a>
             </p>
           </div>
         </div>

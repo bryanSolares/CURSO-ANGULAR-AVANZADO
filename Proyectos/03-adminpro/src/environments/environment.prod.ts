@@ -1,3 +1,6 @@
+// TODO: Cambiar url de los servicios
+
 export const environment = {
-  production: true
+  production: true,
+  base_URL: 'http://localhost:3005/api',
 };
