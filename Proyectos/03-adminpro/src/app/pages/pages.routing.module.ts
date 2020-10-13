@@ -10,6 +10,7 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { AccountSettingComponent } from './account-setting/account-setting.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
         data: { title: 'Promise' },
       },
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RXJS' } },
+      {path: 'profile', component: ProfileComponent, data: {title: 'Profile'}}
     ],
   },
 ];

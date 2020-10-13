@@ -9,12 +9,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 
 // Modules
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
 import { AccountSettingComponent } from './account-setting/account-setting.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 // Externos
 
@@ -27,6 +28,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     AccountSettingComponent,
     PromesasComponent,
     RxjsComponent,
+    ProfileComponent,
   ],
   imports: [
     FormsModule,
@@ -34,6 +36,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     SharedModule,
     RouterModule,
     ComponentsModule,
+    ReactiveFormsModule
   ],
   exports: [
     DashboardComponent,
@@ -42,7 +45,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     PagesComponent,
     AccountSettingComponent,
     PromesasComponent,
-    RxjsComponent
+    RxjsComponent,
+    ProfileComponent,
   ],
 })
 export class PagesModule {}

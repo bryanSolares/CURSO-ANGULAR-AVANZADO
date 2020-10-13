@@ -10,7 +10,7 @@ require("./database/config");
 app.use(express.static(path.join(__dirname,'public')))
 
 app.use(cors());
-app.use(morgan("dev"));
+app.use(morgan("tiny"));
 app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

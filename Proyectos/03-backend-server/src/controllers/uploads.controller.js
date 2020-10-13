@@ -45,12 +45,13 @@ const fileUpload = (req, res = response) => {
         msg: "Error al mover la imagen",
       });
     }
-
+    
     helperImg.updateImg(tipo, id, nameFile);
-
+    
     res.json({
       ok: true,
       msg: "Archivo almacenado Correctamente",
+      nameFile
     });
   });
 };
