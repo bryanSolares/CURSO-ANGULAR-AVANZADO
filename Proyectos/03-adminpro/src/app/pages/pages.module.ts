@@ -16,6 +16,9 @@ import { AccountSettingComponent } from './account-setting/account-setting.compo
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
+import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 
 // Externos
 
@@ -29,6 +32,9 @@ import { ProfileComponent } from './profile/profile.component';
     PromesasComponent,
     RxjsComponent,
     ProfileComponent,
+    UsuariosComponent,
+    MedicosComponent,
+    HospitalesComponent,
   ],
   imports: [
     FormsModule,
@@ -47,6 +53,9 @@ import { ProfileComponent } from './profile/profile.component';
     PromesasComponent,
     RxjsComponent,
     ProfileComponent,
+    UsuariosComponent,
+    MedicosComponent,
+    HospitalesComponent,
   ],
 })
 export class PagesModule {}

@@ -9,6 +9,8 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
 
+import { UsersLoad } from "../interfaces/usuarios.load.interface";
+
 const base_URL = environment.base_URL;
 declare const gapi: any;
 @Injectable({
@@ -30,15 +32,21 @@ export class UsuarioService {
     return localStorage.getItem('token') || '';
   }
 
-  get uid(): string{
+  get uid(): string {
     return this.user.uid || '';
+  }
+
+  get headers() {
+    return {
+      headers:{
+        'x-token': this.token
+      }
+    }
   }
 
   validateToken(): Observable<boolean> {
     return this.http
-      .get(`${base_URL}/auth/renew`, {
-        headers: { 'x-token': this.token },
-      })
+      .get(`${base_URL}/auth/renew`, this.headers)
       .pipe(
         map((response: any) => {
           const { email, google, name, role, uid, img } = response.user;
@@ -59,18 +67,13 @@ export class UsuarioService {
     );
   }
 
-  updateUser(data: { email: string; name: string, role: string }) {
-
+  updateUser(data: { email: string; name: string; role: string }) {
     data = {
       ...data,
-      role: this.user.role
-    }
+      role: this.user.role,
+    };
 
-    return this.http.put(`${base_URL}/usuarios/update/${this.uid}`, data, {
-      headers: {
-        'x-token': this.token,
-      },
-    });
+    return this.http.put(`${base_URL}/usuarios/update/${this.uid}`, data, this.headers);
   }
 
   login(formData: LoginForm) {
@@ -109,5 +112,12 @@ export class UsuarioService {
         this.router.navigateByUrl('/login');
       });
     });
+  }
+
+  loadUsers(desde?: number) {
+    return this.http.get<UsersLoad>(
+      `${base_URL}/usuarios?desde=${desde}&limit=5`,
+      this.headers
+    );
   }
 }
