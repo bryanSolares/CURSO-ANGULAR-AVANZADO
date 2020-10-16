@@ -1,25 +1,96 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+
+import { BusquedaService } from '../../../services/busqueda.service';
 import { UsuarioService } from '../../../services/usuario.service';
+
+import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { Usuario } from '../../../models/usuario.model';
 
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class UsuariosComponent implements OnInit {
-
   public totalUsers = 0;
   public users: Usuario[] = [];
+  public userTemp: Usuario[] = [];
+  public desde = 0;
+  public load = true;
 
-  constructor(private userService: UsuarioService) { }
+  constructor(
+    private userService: UsuarioService,
+    private searchService: BusquedaService,
+    private modalImgService: ModalImagenService
+  ) {}
 
   ngOnInit(): void {
-    this.userService.loadUsers().subscribe(({ count, users }) => {
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.load = true;
+    this.userService.loadUsers(this.desde).subscribe(({ count, users }) => {
       this.totalUsers = count;
       this.users = users;
+      this.userTemp = users;
+      this.load = false;
     });
   }
 
+  changePage(valor: number) {
+    this.desde += valor;
+
+    if (this.desde < 0) {
+      this.desde = 0;
+    } else if (this.desde > this.totalUsers) {
+      this.desde -= valor;
+    }
+
+    this.loadUsers();
+  }
+
+  search(term: string) {
+    if (term.length === 0) {
+      return (this.users = this.userTemp);
+    }
+
+    this.load = true;
+    this.searchService.searchData('usuarios', term).subscribe((response) => {
+      this.users = response;
+      this.load = false;
+    });
+  }
+
+  deleteUser(user: Usuario) {
+    if (user.uid === this.userService.uid) {
+      return Swal.fire('Error', 'No puede eliminarse a sí mismo', 'info');
+    }
+
+    Swal.fire({
+      title: 'Eliminar',
+      text: `¿Esta seguro de eliminar a ${user.name}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.deleteUser(user.uid).subscribe((response) => {
+          Swal.fire('Eliminado!', 'Usuario Eliminado con Exito', 'success');
+          this.loadUsers();
+        });
+      }
+    });
+  }
+
+  changeRole(user: Usuario) {
+    this.userService.updateRole(user).subscribe((response) => {
+      console.log(response);
+    });
+  }
+
+  abrirModal(user: Usuario) {
+    this.modalImgService.abrirModal();
+  }
 }

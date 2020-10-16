@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError, delay } from 'rxjs/operators';
 
 import { RegisterForm } from '../interfaces/registerForm.interface';
 import { LoginForm } from '../interfaces/loginForm.interface';
@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
 
-import { UsersLoad } from "../interfaces/usuarios.load.interface";
+import { UsersLoad } from '../interfaces/usuarios.load.interface';
 
 const base_URL = environment.base_URL;
 declare const gapi: any;
@@ -38,25 +38,23 @@ export class UsuarioService {
 
   get headers() {
     return {
-      headers:{
-        'x-token': this.token
-      }
-    }
+      headers: {
+        'x-token': this.token,
+      },
+    };
   }
 
   validateToken(): Observable<boolean> {
-    return this.http
-      .get(`${base_URL}/auth/renew`, this.headers)
-      .pipe(
-        map((response: any) => {
-          const { email, google, name, role, uid, img } = response.user;
-          console.log(response);
-          this.user = new Usuario(name, email, null, img, google, uid, role);
-          localStorage.setItem('token', response.token);
-          return true;
-        }),
-        catchError((error) => of(false))
-      );
+    return this.http.get(`${base_URL}/auth/renew`, this.headers).pipe(
+      map((response: any) => {
+        const { email, google, name, role, uid, img } = response.user;
+        console.log(response);
+        this.user = new Usuario(name, email, null, img, google, uid, role);
+        localStorage.setItem('token', response.token);
+        return true;
+      }),
+      catchError((error) => of(false))
+    );
   }
 
   createUser(formData: RegisterForm) {
@@ -68,12 +66,25 @@ export class UsuarioService {
   }
 
   updateUser(data: { email: string; name: string; role: string }) {
+
     data = {
       ...data,
-      role: this.user.role,
-    };
+      role: this.user.role
+    }
 
-    return this.http.put(`${base_URL}/usuarios/update/${this.uid}`, data, this.headers);
+    return this.http.put(
+      `${base_URL}/usuarios/update/${this.uid}`,
+      data,
+      this.headers
+    );
+  }
+
+  updateRole(user: Usuario) {
+    return this.http.put(
+      `${base_URL}/usuarios/update/${user.uid}`,
+      user,
+      this.headers
+    );
   }
 
   login(formData: LoginForm) {
@@ -115,9 +126,36 @@ export class UsuarioService {
   }
 
   loadUsers(desde?: number) {
-    return this.http.get<UsersLoad>(
-      `${base_URL}/usuarios?desde=${desde}&limit=5`,
-      this.headers
-    );
+    return this.http
+      .get<UsersLoad>(
+        `${base_URL}/usuarios?desde=${desde}&limit=5`,
+        this.headers
+      )
+      .pipe(
+        delay(500),
+        map((response) => {
+          console.log(response);
+          const usuarios = response.users.map(
+            (user) =>
+              new Usuario(
+                user.name,
+                user.email,
+                user.password,
+                user.img,
+                user.google,
+                user.uid,
+                user.role
+              )
+          );
+          return {
+            count: response.count,
+            users: usuarios,
+          };
+        })
+      );
+  }
+
+  deleteUser(uid: string) {
+    return this.http.delete(`${base_URL}/usuarios/delete/${uid}`, this.headers);
   }
 }

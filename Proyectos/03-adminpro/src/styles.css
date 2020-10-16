@@ -10,7 +10,6 @@
   cursor: pointer;
 }
 
-
 #google-btn {
   text-align: center;
   display: flex;
@@ -21,4 +20,31 @@
 .img-avatar{
   width: 200px;
   height: 200px;
+}
+
+.w-100{
+  width: 100px !important ;
+}
+
+.w-140{
+  width: 140px !important;
+}
+
+.avatar{
+  border-radius: 100%;
+  width: 40px;
+}
+
+#fondo-modal-imagen{
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 9999999;
+}
+
+.oculto{
+  display: none;
 }

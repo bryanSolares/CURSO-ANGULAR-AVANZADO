@@ -8,7 +8,7 @@ const getUsuarios = async (req, res) => {
   const limit = Number(req.query.limit) || 20;
 
   const [users, totalReg] = await Promise.all([
-    Usuario.find({}, "name email role google").skip(desde).limit(limit),
+    Usuario.find({}, "name email role google img").skip(desde).limit(limit),
     Usuario.count(),
   ]);
 
