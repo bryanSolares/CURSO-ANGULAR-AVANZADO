@@ -20,6 +20,8 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 
+import { PipesModule } from '../pipes/pipes.module';
+
 // Externos
 
 @NgModule({
@@ -42,7 +44,8 @@ import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.comp
     SharedModule,
     RouterModule,
     ComponentsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule,
   ],
   exports: [
     DashboardComponent,

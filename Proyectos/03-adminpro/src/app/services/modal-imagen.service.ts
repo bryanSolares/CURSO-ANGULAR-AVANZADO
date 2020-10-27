@@ -7,7 +7,7 @@ const baseURL = environment.base_URL;
   providedIn: 'root',
 })
 export class ModalImagenService {
-  private _ocultarModal = false;
+  private _ocultarModal = true;
   public tipo: 'usuarios' | 'medicos' | 'hospitales';
   public id: string;
   public img: string;

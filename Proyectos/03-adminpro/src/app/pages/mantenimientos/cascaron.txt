@@ -33,44 +33,23 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">
-          Hospitales
-          <span class="label label-success">({{ hospitals.length }})</span>
+          Hospitales <span class="label label-success">(20)</span>
         </h4>
         <h6 class="card-subtitle">Hospitales Registrados</h6>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th class="w-100">Image</th>
+                <th>Email</th>
                 <th>Name</th>
                 <th class="text-nowrap w-100">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let hospital of hospitals">
-                <td class="text-center">
-                  <img
-                    class="avatar cursor"
-                    [src]="hospital.img | imagen: 'hospitales'"
-                    [alt]="hospital.name"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Hospital Name"
-                    [(ngModel)]="hospital.name"
-                  />
-                </td>
+              <tr>
+                <td></td>
+                <td></td>
                 <td class="text-nowrap text-center">
-                  <a
-                    href="#"
-                    data-toggle="tooltip"
-                    data-original-title="Guardar"
-                  >
-                    <i class="fa fa-pencil text-inverse m-r-10"></i>
-                  </a>
                   <a
                     data-toggle="tooltip"
                     data-original-title="Borrar"
@@ -84,7 +63,7 @@
             </tbody>
           </table>
 
-          <!--<div *ngIf="txtTerm.value.length === 0">
+          <div *ngIf="txtTerm.value.length === 0">
             <button (click)="changePage(-5)" class="btn btn-secondary">
               Anteriores
             </button>
@@ -92,7 +71,7 @@
             <button (click)="changePage(5)" class="btn btn-secondary">
               Siguientes
             </button>
-          </div>-->
+          </div>
         </div>
       </div>
     </div>
