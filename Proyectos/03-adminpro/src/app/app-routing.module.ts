@@ -12,7 +12,7 @@ const routes: Routes = [
   // path: '/auth' AuthRoutingModule
   // path: '/medicos'
   // path: '/compras'
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', component: NopagefoundComponent },
 ];
 
