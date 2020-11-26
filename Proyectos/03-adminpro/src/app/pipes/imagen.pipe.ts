@@ -8,10 +8,12 @@ const base_URL = environment.base_URL;
 })
 export class ImagenPipe implements PipeTransform {
   transform(img: string, type: 'usuarios' | 'medicos' | 'hospitales'): string {
-    return img
-      ? `${img.includes('https')}`
-      : img
-      ? `${base_URL}/uploads/${type}/${img}`
-      : `${base_URL}/uploads/${type}/no-image`;
+    if (!img) {
+      return `${base_URL}/uploads/${type}/no-image`;
+    } else if (img.includes('https')) {
+      return img;
+    } else {
+      return `${base_URL}/uploads/${type}/${img}`;
+    }
   }
 }

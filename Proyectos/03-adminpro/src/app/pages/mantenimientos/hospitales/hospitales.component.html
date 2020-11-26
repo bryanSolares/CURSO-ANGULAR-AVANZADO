@@ -42,7 +42,7 @@
           </div>
           <div class="col">
             <div class="text-right">
-              <button class="btn btn-primary">
+              <button class="btn btn-primary" (click)="openModalCreate()">
                 <i class="fa fa-hospital-o"></i>
                 Create Hospital
               </button>
@@ -63,9 +63,10 @@
               <tr *ngFor="let hospital of hospitals">
                 <td class="text-center">
                   <img
-                    class="avatar cursor"
+                    class="cursor w-100"
                     [src]="hospital.img | imagen: 'hospitales'"
                     [alt]="hospital.name"
+                    (click)="abrirModal(hospital)"
                   />
                 </td>
                 <td>

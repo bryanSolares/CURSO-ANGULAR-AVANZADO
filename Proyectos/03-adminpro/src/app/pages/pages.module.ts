@@ -19,6 +19,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
+import { MedicoComponent } from './mantenimientos/medicos/medico.component';
 
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -37,6 +38,7 @@ import { PipesModule } from '../pipes/pipes.module';
     UsuariosComponent,
     MedicosComponent,
     HospitalesComponent,
+    MedicoComponent,
   ],
   imports: [
     FormsModule,
@@ -58,6 +60,7 @@ import { PipesModule } from '../pipes/pipes.module';
     ProfileComponent,
     UsuariosComponent,
     MedicosComponent,
+    MedicoComponent,
     HospitalesComponent,
   ],
 })
