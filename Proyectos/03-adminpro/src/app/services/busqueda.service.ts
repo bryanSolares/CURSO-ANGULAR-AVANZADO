@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.model';
 import { Hospital } from '../models/hospital.model';
 import { Observable } from 'rxjs';
+import { Medico } from '../models/medico.model';
 
 const base_URL = environment.base_URL;
 
@@ -45,6 +46,10 @@ export class BusquedaService {
     return resultados;
   }
 
+  private transformDoctors(resultdos: Medico[]): Medico[]{
+    return resultdos;
+  }
+
   searchData(type: 'usuarios' | 'medicos' | 'hospitales', term: string) {
     return this.http
       .get<any[]>(`${base_URL}/todo/collection/${type}/${term}`, this.headers)
@@ -55,6 +60,8 @@ export class BusquedaService {
               return this.transformUsers(response.resultados);
             case 'hospitales':
               return this.transformHospitals(response.resultados);
+            case 'medicos':
+              return this.transformDoctors(response.resultados);
             default:
               return [];
           }

@@ -34,18 +34,22 @@ export class MedicoService {
       );
   }
 
-  createDoctor(medico: Medico) {
-    return this.http.post(
-      `${base_URL}/medicos/create`,
-      { medico },
-      this.headers
-    );
+  getDoctorById(id: string) {
+    return this.http
+      .get(`${base_URL}/medicos/${id}`, this.headers)
+      .pipe(
+        map((response: { ok: boolean; medico: Medico }) => response.medico)
+      );
+  }
+
+  createDoctor(medico: { name: string; hospital: string }) {
+    return this.http.post(`${base_URL}/medicos/create`, medico, this.headers);
   }
 
   updateDoctor(medico: Medico) {
     return this.http.put(
       `${base_URL}/medicos/update/${medico._id}`,
-      { medico },
+      medico,
       this.headers
     );
   }

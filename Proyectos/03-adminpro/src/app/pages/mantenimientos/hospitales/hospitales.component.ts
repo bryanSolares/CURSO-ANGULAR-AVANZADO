@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ import { BusquedaService } from '../../../services/busqueda.service';
   templateUrl: './hospitales.component.html',
   styles: [],
 })
-export class HospitalesComponent implements OnInit {
+export class HospitalesComponent implements OnInit, OnDestroy {
   public load = true;
   public hospitals: Hospital[] = [];
   private imgSubs: Subscription;
@@ -26,6 +26,7 @@ export class HospitalesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadHospitals();
     this.imgSubs = this.modalImgService.newImg
       .pipe(delay(100))
       .subscribe((newImg) => {
@@ -94,4 +95,8 @@ export class HospitalesComponent implements OnInit {
   }
 
   changePage(page) {}
+
+  ngOnDestroy(): void {
+    this.imgSubs.unsubscribe();
+  }
 }
