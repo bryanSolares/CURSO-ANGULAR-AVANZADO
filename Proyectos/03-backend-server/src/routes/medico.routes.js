@@ -9,6 +9,7 @@ const { validateJWT } = require("../middlewares/validar-jwt.middle");
 const medicoCtrl = require("../controllers/medico.controller");
 
 router.get("/", validateJWT, medicoCtrl.getMedicos);
+router.get("/:id", validateJWT, medicoCtrl.getByIdMedico);
 router.post(
   "/create",
   validateJWT,
