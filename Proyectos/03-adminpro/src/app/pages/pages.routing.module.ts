@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 
 import { AuthGuard } from '../guards/auth.guard';
+import { AdminGuard } from '../guards/admin.guard';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -15,6 +16,7 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 const routes: Routes = [
   {
@@ -53,6 +55,7 @@ const routes: Routes = [
       {
         path: 'usuarios',
         component: UsuariosComponent,
+        canActivate: [AdminGuard],
         data: { title: 'User Maintenance' },
       },
       {
@@ -69,6 +72,12 @@ const routes: Routes = [
         path: 'medico/:id',
         component: MedicoComponent,
         data: { title: 'Doctor Maintenance' },
+      },
+      // Búsquedas
+      {
+        path: 'buscar/:termino',
+        component: BusquedaComponent,
+        data: { title: 'Búsquedas' },
       },
     ],
   },

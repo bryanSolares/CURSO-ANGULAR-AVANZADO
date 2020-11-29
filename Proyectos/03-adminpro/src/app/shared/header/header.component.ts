@@ -17,6 +17,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  search(termino: string) {
+    if (termino.length === 0) {
+      return;
+    }
+    this.router.navigate(['/dashboard', 'buscar', termino]);
+  }
+
   logout(): void {
     this.userService.logout();
   }

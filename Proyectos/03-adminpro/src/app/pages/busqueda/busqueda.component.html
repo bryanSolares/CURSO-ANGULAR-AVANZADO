@@ -1,0 +1,18 @@
+<app-tabla-busqueda
+  [data]="usuarios"
+  [titulo]="'Usuarios'"
+  [tipoArreglo]="'usuarios'"
+></app-tabla-busqueda>
+
+<app-tabla-busqueda
+  [data]="medicos"
+  [titulo]="'Médicos'"
+  [tipoArreglo]="'medicos'"
+  (navegarRuta)="navegar($event)"
+></app-tabla-busqueda>
+
+<app-tabla-busqueda
+  [data]="hospitales"
+  [titulo]="'Hospitales'"
+  [tipoArreglo]="'hospitales'"
+></app-tabla-busqueda>

@@ -4,6 +4,7 @@ const User = require("../models/usuario.model");
 const { generateJWT } = require("../helpers/jwt.helpers");
 const { googleVerify } = require("../helpers/google-helpers");
 const Usuario = require("../models/usuario.model");
+const getMenuFrontEnd = require("../helpers/menu-helper");
 
 const login = async (req, res = response) => {
   try {
@@ -31,12 +32,11 @@ const login = async (req, res = response) => {
     res.json({
       ok: true,
       token,
+      menu: getMenuFrontEnd(userDB.role),
     });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ ok: false, message: "Error inesperado, revisar logs" });
+    res.status(500).json({ ok: false, message: "Error inesperado, revisar logs" });
   }
 };
 
@@ -69,6 +69,7 @@ const googleSignIn = async (req, res = response) => {
       msg: "Sign In Google",
       data: dataGoogle,
       token: tokenNew,
+      menu: getMenuFrontEnd(usuarioNuevo.role),
     });
   } catch (error) {
     console.log(error, "Error al verificar token google");
@@ -87,6 +88,7 @@ const renewToken = async (req, res = response) => {
     ok: true,
     token,
     user,
+    menu: getMenuFrontEnd(user.role),
   });
 };
 

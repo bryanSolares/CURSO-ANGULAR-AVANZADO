@@ -1,0 +1,39 @@
+<div class="row animate fadeIn fast">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3>{{ titulo }}</h3>
+        <div class="alert alert-info" *ngIf="data.length === 0">
+          <p class="mb-0">No hay {{ titulo }} con ese término</p>
+        </div>
+
+        <div class="table-responsive" *ngIf="data.length > 0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of data">
+                <td>
+                  <img
+                    [src]="item.img | imagen: tipoArreglo"
+                    [alt]="item.name"
+                    class="w-75"
+                  />
+                </td>
+                <td>
+                  <a (click)="navegar(item._id)" class="cursor">
+                    {{ item.name }}
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
