@@ -6,7 +6,7 @@ const router = require("express").Router();
 const { check } = require("express-validator");
 const usuarioCtrl = require("../controllers/usuario.controller");
 const { validarCampos } = require("../middlewares/validar-campos.middle");
-const { validateJWT } = require("../middlewares/validar-jwt.middle");
+const { validateJWT, validateROLE, validateUpdateProfile } = require("../middlewares/validar-jwt.middle");
 
 router.get("/", validateJWT, usuarioCtrl.getUsuarios);
 router.post(
@@ -14,9 +14,7 @@ router.post(
   [
     check("name", "Name required").notEmpty(),
     check("email", "Email required and valid").isEmail(),
-    check("password", "Password required and Length min 5")
-      .notEmpty()
-      .isLength({ min: 5 }),
+    check("password", "Password required and Length min 5").notEmpty().isLength({ min: 5 }),
   ],
   validarCampos,
   usuarioCtrl.createUser
@@ -24,6 +22,7 @@ router.post(
 router.put(
   "/update/:id",
   validateJWT,
+  validateUpdateProfile,
   [
     check("name", "Name required").notEmpty(),
     check("email", "Email required and valid").isEmail(),
@@ -32,6 +31,6 @@ router.put(
   validarCampos,
   usuarioCtrl.updateUser
 );
-router.delete("/delete/:id", validateJWT, usuarioCtrl.deleteUser);
+router.delete("/delete/:id", validateJWT, validateROLE, usuarioCtrl.deleteUser);
 
 module.exports = router;

@@ -52,7 +52,6 @@ export class UsuarioService {
     return this.http.get(`${base_URL}/auth/renew`, this.headers).pipe(
       map((response: any) => {
         const { email, google, name, role, uid, img } = response.user;
-        console.log(response);
         this.user = new Usuario(name, email, null, img, google, uid, role);
         this.saveLocalStorage(response.token, response.menu);
         return true;

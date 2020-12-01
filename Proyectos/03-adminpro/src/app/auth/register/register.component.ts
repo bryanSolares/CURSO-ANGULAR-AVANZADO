@@ -15,10 +15,10 @@ export class RegisterComponent {
 
   public registerForm = this.formBuilder.group(
     {
-      name: ['Usuario 1', [Validators.required, Validators.minLength(5)]],
-      email: ['1@gmail.com', [Validators.email, Validators.required]],
-      password: ['123456', Validators.required],
-      password2: ['123456', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(5)]],
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', Validators.required],
+      password2: ['', Validators.required],
       conditions: [true, Validators.requiredTrue],
     },
     {
