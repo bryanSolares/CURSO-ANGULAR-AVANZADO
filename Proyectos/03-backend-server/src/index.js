@@ -3,11 +3,11 @@ const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
 const fileUpload = require("express-fileupload");
-const path = require('path')
+const path = require("path");
 require("dotenv").config();
 require("./database/config");
 
-app.use(express.static(path.join(__dirname,'public')))
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 app.use(morgan("tiny"));
@@ -22,6 +22,10 @@ app.use("/api/hospitales", require("./routes/hospital.routes"));
 app.use("/api/medicos", require("./routes/medico.routes"));
 app.use("/api/todo", require("./routes/busqueda.routes"));
 app.use("/api/uploads", require("./routes/upload.routes"));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`Aplicación en puerto ${process.env.PORT}`);
