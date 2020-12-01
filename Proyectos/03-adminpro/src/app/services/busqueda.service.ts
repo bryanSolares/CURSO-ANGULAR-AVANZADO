@@ -46,7 +46,7 @@ export class BusquedaService {
     return resultados;
   }
 
-  private transformDoctors(resultdos: Medico[]): Medico[]{
+  private transformDoctors(resultdos: Medico[]): Medico[] {
     return resultdos;
   }
 
@@ -67,5 +67,12 @@ export class BusquedaService {
           }
         })
       );
+  }
+
+  busquedaGlobal(termino: string) {
+    return this.http.get<any[]>(
+      `${base_URL}/todo/${termino}`,
+      this.headers
+    );
   }
 }

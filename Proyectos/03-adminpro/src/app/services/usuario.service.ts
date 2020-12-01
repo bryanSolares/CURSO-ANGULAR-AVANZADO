@@ -32,6 +32,10 @@ export class UsuarioService {
     return localStorage.getItem('token') || '';
   }
 
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' | string {
+    return this.user.role;
+  }
+
   get uid(): string {
     return this.user.uid || '';
   }
@@ -50,7 +54,7 @@ export class UsuarioService {
         const { email, google, name, role, uid, img } = response.user;
         console.log(response);
         this.user = new Usuario(name, email, null, img, google, uid, role);
-        localStorage.setItem('token', response.token);
+        this.saveLocalStorage(response.token, response.menu);
         return true;
       }),
       catchError((error) => of(false))
@@ -60,17 +64,16 @@ export class UsuarioService {
   createUser(formData: RegisterForm) {
     return this.http.post(`${base_URL}/usuarios/create`, formData).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        this.saveLocalStorage(response.token, response.menu);
       })
     );
   }
 
   updateUser(data: { email: string; name: string; role: string }) {
-
     data = {
       ...data,
-      role: this.user.role
-    }
+      role: this.user.role,
+    };
 
     return this.http.put(
       `${base_URL}/usuarios/update/${this.uid}`,
@@ -90,7 +93,7 @@ export class UsuarioService {
   login(formData: LoginForm) {
     return this.http.post(`${base_URL}/auth/login`, formData).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        this.saveLocalStorage(response.token, response.menu);
       })
     );
   }
@@ -98,7 +101,7 @@ export class UsuarioService {
   loginGoogle(token: string) {
     return this.http.post(`${base_URL}/auth/google/login`, { token }).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        this.saveLocalStorage(response.token, response.menu);
       })
     );
   }
@@ -117,7 +120,7 @@ export class UsuarioService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.clearStorage();
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
@@ -157,5 +160,15 @@ export class UsuarioService {
 
   deleteUser(uid: string) {
     return this.http.delete(`${base_URL}/usuarios/delete/${uid}`, this.headers);
+  }
+
+  saveLocalStorage(token: string, menu: any) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
+  clearStorage() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('menu');
   }
 }
